@@ -1,6 +1,6 @@
-// Wait for the DOM to load before attaching events or updating the page.
+// Wait for the page content to load before running any JavaScript.
 document.addEventListener("DOMContentLoaded", function () {
-    // Handle the home page test button without affecting other pages.
+    // Button event: keep the existing click interaction on the home page.
     const button = document.getElementById("testButton");
     const output = document.getElementById("output");
 
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Load sample event data anywhere an events container is present.
+    // API fetch logic: load sample event data anywhere an events container exists.
     const eventsContainer = document.getElementById("eventsContainer");
 
     if (!eventsContainer) {
@@ -26,21 +26,34 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function (posts) {
-            // Render fetched posts as Bootstrap cards for a cleaner layout.
-            eventsContainer.innerHTML = posts
-                .map(function (post) {
-                    return `
-                        <div class="col-md-4">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h3 class="card-title h5">${post.title}</h3>
-                                    <p class="card-text">${post.body}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                })
-                .join("");
+            // Clear the container before adding new event cards.
+            eventsContainer.innerHTML = "";
+
+            // Loop through the API results and build one Bootstrap card per item.
+            posts.forEach(function (post) {
+                const column = document.createElement("div");
+                column.className = "col-md-4";
+
+                const card = document.createElement("div");
+                card.className = "card h-100 shadow-sm";
+
+                const cardBody = document.createElement("div");
+                cardBody.className = "card-body";
+
+                const cardTitle = document.createElement("h3");
+                cardTitle.className = "card-title h5";
+                cardTitle.textContent = post.title;
+
+                const cardText = document.createElement("p");
+                cardText.className = "card-text";
+                cardText.textContent = post.body;
+
+                cardBody.appendChild(cardTitle);
+                cardBody.appendChild(cardText);
+                card.appendChild(cardBody);
+                column.appendChild(card);
+                eventsContainer.appendChild(column);
+            });
         })
         .catch(function () {
             // Show a helpful error message if the API request fails.
