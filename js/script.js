@@ -29,6 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clear the container before adding new event cards.
             eventsContainer.innerHTML = "";
 
+            // Use friendly campus-style summaries so the UI reads clearly in English.
+            const eventDescriptions = [
+                "Join students for a welcome event with music, snacks, and club information in the student center.",
+                "Visit the library for a study support session with helpful resources for upcoming classes and exams.",
+                "Stop by the recreation center to learn about wellness activities, fitness programs, and campus opportunities."
+            ];
+
             // Loop through the API results and build one Bootstrap card per item.
             posts.forEach(function (post, index) {
                 const column = document.createElement("div");
@@ -46,14 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const cardSubtitle = document.createElement("p");
                 cardSubtitle.className = "text-primary fw-semibold mb-2";
-                cardSubtitle.textContent = post.title;
+                cardSubtitle.textContent = "Featured student announcement";
 
                 const cardText = document.createElement("p");
                 cardText.className = "card-text";
-                cardText.textContent =
-                    "Student announcement: " +
-                    post.body.charAt(0).toUpperCase() +
-                    post.body.slice(1);
+                cardText.textContent = eventDescriptions[index] || "Check back soon for more campus updates and student announcements.";
 
                 cardBody.appendChild(cardTitle);
                 cardBody.appendChild(cardSubtitle);
