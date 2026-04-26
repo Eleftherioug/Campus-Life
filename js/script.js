@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             eventsContainer.innerHTML = "";
 
             // Loop through the API results and build one Bootstrap card per item.
-            posts.forEach(function (post) {
+            posts.forEach(function (post, index) {
                 const column = document.createElement("div");
                 column.className = "col-md-4";
 
@@ -42,13 +42,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const cardTitle = document.createElement("h3");
                 cardTitle.className = "card-title h5";
-                cardTitle.textContent = post.title;
+                cardTitle.textContent = "Campus Update " + (index + 1);
+
+                const cardSubtitle = document.createElement("p");
+                cardSubtitle.className = "text-primary fw-semibold mb-2";
+                cardSubtitle.textContent = post.title;
 
                 const cardText = document.createElement("p");
                 cardText.className = "card-text";
-                cardText.textContent = post.body;
+                cardText.textContent =
+                    "Student announcement: " +
+                    post.body.charAt(0).toUpperCase() +
+                    post.body.slice(1);
 
                 cardBody.appendChild(cardTitle);
+                cardBody.appendChild(cardSubtitle);
                 cardBody.appendChild(cardText);
                 card.appendChild(cardBody);
                 column.appendChild(card);
