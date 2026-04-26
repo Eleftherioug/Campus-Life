@@ -17,10 +17,16 @@ h2 {
     padding-right: 20px;
 }
 
+/* Section spacing for a cleaner page layout */
+section {
+    margin-bottom: 2rem;
+}
+
 /* Card styling for feature and API content */
 .card {
     border: 1px solid #d9e2ec;
     border-radius: 1rem;
+    padding: 0.25rem;
 }
 
 /* Footer spacing and readability */
@@ -28,10 +34,14 @@ footer {
     margin-top: 3rem;
 }
 
-/* Mobile responsiveness for smaller screens */
-@media (max-width: 576px) {
+/* Responsive styling for tablets and mobile screens */
+@media (max-width: 768px) {
     .display-5 {
         font-size: 2rem;
+    }
+
+    section {
+        margin-bottom: 1.5rem;
     }
 
     .container {
